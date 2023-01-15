@@ -1,0 +1,340 @@
+<div class="container  p-2 mt-5 font-monospace">
+
+  <!--  left side container div-->
+  <div *ngIf="isClickedConsultButton==false">
+
+    <!--    div for tab navbar-->
+    <div class="d-flex  pt-3">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item" role="presentation">
+          <a class="nav-link active" data-bs-toggle="tab" href="#pending" aria-selected="true"
+             role="tab">Pending
+            Appointments</a>
+        </li>
+        <!--        <li class="nav-item" role="presentation">-->
+        <!--          <a class="nav-link" data-bs-toggle="tab" href="#parked" aria-selected="false" role="tab"-->
+        <!--             tabindex="-1">Parked-->
+        <!--            Patients-->
+        <!--          </a>-->
+        <!--        </li>-->
+        <li class="nav-item" role="presentation">
+          <a class="nav-link" data-bs-toggle="tab" href="#completed" aria-selected="false" role="tab"
+             tabindex="-1">
+            Completed Consultations </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link btn btn-danger" (click)="logout();" style="color: red">Logout</button>
+        </li>
+      </ul>
+    </div>
+    <!--end of tab div-->
+
+
+    <!--    tab content main div-->
+    <div id="myTabContent" class="tab-content mt-5 p-3">
+
+      <!--      div for pending appointments-->
+      <div class="tab-pane fade active show" id="pending" role="tabpanel">
+
+
+        <div>
+
+          <table class="table ">
+            <thead>
+
+            <tr>
+              <th>Appointment Id</th>
+              <th>Patient Name</th>
+              <th>Session</th>
+              <th></th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+            <tr
+              *ngFor="let datum of pendingAppointments  | paginate:{itemsPerPage: 2, currentPage: page  }">
+              <td>{{datum.appointmentId}}</td>
+              <td>{{datum.patients.firstName}} {{datum.patients.lastName}}</td>
+              <td>{{datum.session}}</td>
+              <td>
+                <button class="btn btn-primary" type="button"
+                        (click)="handleConsultation(datum.appointmentId,datum.doctorId,datum.patientId);getDate(datum.patients.dob)">
+                  Consult
+                </button>
+              </td>
+            </tr>
+
+
+            </tbody>
+
+
+          </table>
+
+
+          <div class="pt-3 d-flex justify-content-end">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div>
+
+
+        </div>
+
+      </div>
+      <!--EOD-->
+
+      <!--      div for parked patients-->
+      <div class="tab-pane fade" id="parked" role="tabpanel">
+
+
+        <div>
+          <table class="table ">
+            <thead>
+
+            <tr>
+              <th>Appointment Id</th>
+              <th>Patient Name</th>
+              <th>Session</th>
+              <th></th>
+            </tr>
+
+            </thead>
+
+            <tbody>
+
+
+            <tr *ngFor="let datum of parkedPatients  | paginate:{itemsPerPage: 2, currentPage: page,id:'foo' }">
+              <td>{{datum.appointmentId}}</td>
+              <td>{{datum.patients.firstName}} {{datum.patients.lastName}}</td>
+              <td>{{datum.session}}</td>
+              <td>
+                <button class="btn btn-success" type="button">Consult</button>
+              </td>
+            </tr>
+
+            </tbody>
+          </table>
+
+          <div class="pt-3 d-flex justify-content-end">
+            <pagination-controls (pageChange)="page = $event"></pagination-controls>
+          </div>
+
+        </div>
+
+
+      </div>
+      <!-- EOD-->
+      <!--      eod tab content main-->
+
+      <!--      div for completed patientConsultationDetails-->
+      <div class="tab-pane fade" id="completed" role="tabpanel">
+
+
+        <table class="table ">
+          <thead>
+
+          <tr>
+            <th>Appointment Id</th>
+            <th>Patient Name</th>
+            <th>Session</th>
+            <th></th>
+          </tr>
+
+          </thead>
+
+          <tbody>
+
+          <tr
+            *ngFor="let datum of completedConsultations  ">
+            <td>{{datum.appointmentId}}</td>
+            <td>{{datum.patients.firstName}} {{datum.patients.lastName}}</td>
+            <td>{{datum.session}}</td>
+            <td>
+          </tr>
+
+
+          </tbody>
+        </table>
+
+        <!--          pagination div-->
+
+
+        <!--        eo pagination div-->
+
+
+      </div>
+      <!--      end of div-->
+
+    </div>
+
+  </div>
+
+
+  <!--  main div for consultation page-->
+  <div *ngIf="isClickedConsultButton">
+
+
+    <!--    flex div-->
+
+    <div class="d-flex p-3 justify-content-around px-3">
+
+      <!--    left div  -->
+      <div>
+
+        <div class="d-flex justify-content-evenly ">
+          <P>{{patient.firstName}} {{patient.lastName}}</P>
+          <p>{{patient.gender}}</p>
+          <P>{{patientage}}</P>
+        </div>
+
+
+        <hr>
+        <div class="d-flex justify-content-evenly">
+          <p>bp</p>
+          <p>sugar</p>
+          <p>weight</p>
+        </div>
+
+        <hr>
+
+        <div>
+
+          <div class="accordion accordion-flush">
+            <div class="accordion-item" *ngFor="let datum of patientConsultationDetails ;let
+               i = index">
+              <div class="accordion-header">
+                <button class="accordion-button  text-black bg-white" type="button" data-bs-toggle="collapse"
+                        [attr.data-bs-target]="'#x'+i" aria-expanded="true" [attr.aria-controls]="'x'+i">
+                  <span class="text-secondary px-3">{{datum.date.split('T')[0]}} </span>
+                  <span class="text-info px-3">Dr.{{datum.doctors.firstName}}
+                    {{datum.doctors.lastName}}</span>
+                </button>
+              </div>
+              <div id="{{'x'+i}}" class="accordion-collapse collapse " aria-labelledby="headingOne"
+                   data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                  <div>
+                    <div class="py-2">
+                      <h4>{{datum.diagnosis}}</h4>
+                    </div>
+
+                    <table class="table">
+                      <thead>
+                      <tr>
+                        <th>Medicine</th>
+                        <th>Number of tablets</th>
+                        <th>frequency</th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      <tr *ngFor="let i of datum.medications.split(';') ">
+                        <td>{{i.split(':')[0]}}</td>
+                        <td>{{i.split(':')[1]}}</td>
+                        <td>{{i.split(':')[2]}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+
+      </div>
+
+
+      <!--  eo left div     -->
+      <!--      right div-->
+      <div>
+
+        <form #form="ngForm" (ngSubmit)="handleInvoiceSubmit(form)">
+
+          <div>
+            <textarea ngModel #diagnosis="ngModel" name="email" class="form-control" cols="30" rows="5"
+                      placeholder="Diagnosis"></textarea>
+
+          </div>
+
+          <div class="d-flex  pt-3">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <a class="nav-link active" data-bs-toggle="tab" href="#medicines" aria-selected="true"
+                   role="tab">medicines</a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#radiology" aria-selected="false" role="tab"
+                   tabindex="-1">Radiology
+                </a>
+              </li>
+              <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#lab" aria-selected="false" role="tab"
+                   tabindex="-1">
+                  Lab tests
+                </a>
+              </li>
+            </ul>
+          </div>
+
+
+          <div class="tab-content">
+
+
+            <div class="tab-pane fade show active pt-3" id="medicines" role="tabpanel ">
+              <div class="d-flex justify-content-between">
+                <button class="btn btn-success" type="button" (click)="add();">➕ Medicine</button>
+                <button class="btn btn-danger" type="button" (click)="remove();"> ➖ Medicine</button>
+              </div>
+              <hr>
+
+              <div class="d-flex mt-2" *ngFor="let x of elements;let i=index">
+                <input ngModel #medicine="ngModel" name="m{{i}}" type="text" placeholder="medicine name"
+                       class="form-control">
+                <input ngModel #number="ngModel" name="n{{i}}" type="number" placeholder="No.of 💊"
+                       class="form-control" style="width: 130px">
+                <select ngModel #frequency="ngModel" name="f{{i}}" class="form-select" style="width:
+                fit-content">
+                  <option value="OD">OD</option>
+                  <option value="BD">BD</option>
+                  <option value="TD">TD</option>
+                </select>
+              </div>
+
+              <div>
+                <hr>
+                <input ngModel #remarks="ngModel" name="remarks" type="text" class="form-control"
+                       placeholder="remarks">
+              </div>
+
+
+            </div>
+            <div class="tab-pane fade" id="radiology" role="tabpanel">
+
+            </div>
+            <div class="tab-pane fade" id="lab" role="tabpanel">
+
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-end  mt-3">
+            <button type="button" class="btn btn-secondary mx-3">Park</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+
+        </form>
+
+      </div>
+      <!--   eo right div   -->
+    </div>
+    <!--    eo flex div-->
+
+  </div>
+
+  <!--  eo main div for consultation -->
+
+
+</div>

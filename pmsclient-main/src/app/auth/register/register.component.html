@@ -1,0 +1,71 @@
+<div class="d-flex justify-content-center">
+
+  <div class="p-4" style="width: 500px">
+
+    <div class="d-flex justify-content-center ">
+      <h1 style="color: #2a7bf5">Register </h1>
+    </div>
+
+    <form #form="ngForm" (ngSubmit)="handleRegister(form)">
+
+      <input ngModel #firstName="ngModel" name="firstName" class="form-control" type="text" placeholder="First Name">
+      <input ngModel #lastName="ngModel" name="lastName" class="form-control" type="text" placeholder="Last Name">
+
+      <div>
+        <input ngModel #phoneNumber="ngModel" name="patientPhoneNumber" class="form-control" type="text"
+               placeholder="Phone Number">
+
+        <select ngModel #gender="ngModel" name="gender" class="form-select">
+          <option>Gender</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Others</option>
+        </select>
+
+      </div>
+
+      <input ngModel #emergencyContact="ngModel" name="emergencyContactNumber" class="form-control" type="text"
+             placeholder="Emergency Contact No">
+      <input ngModel #email="ngModel" name="email" class="form-control" type="email" placeholder="Email">
+      <input ngModel #dob="ngModel" name="dob" class="form-control" type="date" placeholder="Date of Birth" [max]="getToday()">
+      <input ngModel #houseName="ngModel" name="houseNo" class="form-control" type="text" placeholder="House Name">
+      <input ngModel #place="ngModel" name="place" class="form-control" type="text" placeholder="Place">
+      <input ngModel #pin="ngModel" name="pincode" class="form-control" type="text" placeholder="Pincode">
+
+      <div>
+
+        <select ngModel #bloodGroup="ngModel" name="bloodGroup" class="form-select">
+          <option>Blood Group</option>
+          <option>A+</option>
+          <option>A-</option>
+          <option>B+</option>
+          <option>B-</option>
+          <option>AB+</option>
+          <option>AB-</option>
+          <option>O+</option>
+          <option>O-</option>
+        </select>
+
+
+      </div>
+
+      <input ngModel #aadhar="ngModel" name="aadhar" class="form-control" type="text" placeholder="Aadhar Number">
+      <input ngModel #password="ngModel" name="password" class="form-control" type="password" placeholder="Password"/>
+      <input ngModel #confirmPassword="ngModel" name="confirmPassword" class="form-control" type="password"
+             placeholder="Confirm Password"/>
+
+      <div class="d-flex justify-content-end mt-3">
+        <button class="btn btn-primary">Register</button>
+      </div>
+
+      <div class="d-flex justify-content-end mt-2">
+        <p>Already a member? <a routerLink="/">Login here</a></p>
+      </div>
+
+
+    </form>
+
+  </div>
+
+</div>
+

@@ -1,0 +1,189 @@
+<div class="container-fluid mt-5 font-monospace">
+
+  <ul class="nav nav-tabs" role="tablist">
+    <li class="nav-item" role="presentation">
+      <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">User Details</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1" role="tab">Doctor
+        Details</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" data-bs-toggle="tab" href="#div2" aria-selected="false" tabindex="-1" role="tab">
+        Consultation Details</a>
+    </li>
+    <li class="nav-item" role="presentation">
+      <a class="nav-link" data-bs-toggle="tab" href="#div3" aria-selected="false" tabindex="-1" role="tab">
+        Add Doctor</a>
+    </li>
+    <li class="nav-item ps-4" role="presentation">
+      <button class="btn btn-outline-danger" (click)="logout();">Logout</button>
+    </li>
+
+  </ul>
+
+  <div id="myTabContent" class="tab-content">
+    <!--    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+    <div class="tab-pane fade show active" id="home" role="tabpanel">
+
+      <ag-grid-angular
+        style="width: 100%; height: 88vh; font-family:monospace; border: 2px solid gray;font-size: large"
+        class="p-4 ag-theme-balham"
+        [columnDefs]="usercolumnDefs"
+        [rowData]="userrowData"
+        [defaultColDef]="defaultColDef"
+
+
+      ></ag-grid-angular>
+
+    </div>
+    <!--    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+    <div class="tab-pane fade" id="profile" role="tabpanel">
+
+
+      <div class="container-fluid font-monospace" style="border: none">
+
+        <ag-grid-angular
+          style="width: 100%; height: 88vh; font-family:monospace; border: 2px solid gray;font-size: large"
+          class="p-4 ag-theme-balham"
+          [columnDefs]="columnDefs"
+          [rowData]="rowData"
+          [defaultColDef]="defaultColDef"
+
+
+        ></ag-grid-angular>
+
+
+      </div>
+
+    </div>
+    <!--    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+    <div class="tab-pane fade" id="div2" role="tabpanel">
+
+      <ag-grid-angular
+        style="width: 100%; height: 88vh; font-family:monospace; border: 2px solid gray;font-size: large"
+        class="p-4 ag-theme-balham"
+        [columnDefs]="concolumnDefs"
+        [rowData]="conrowData"
+        [defaultColDef]="defaultColDef"
+
+
+      ></ag-grid-angular>
+
+
+    </div>
+
+    <!--    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+    <div class="tab-pane fade" id="div3" role="tabpanel">
+
+
+      <h3 class="text-primary pt-3">Add New Doctor</h3>
+      <hr>
+      <div class="mt-5 d-flex justify-content-center">
+
+        <form #form="ngForm" (ngSubmit)="handleRegisterDoctor(form)" class="mt-2 w-50">
+
+          <input ngModel required #firstName="ngModel" name="firstName" class="form-control" type="text"
+                 placeholder="First Name">
+          <div class="text-danger mt-2" *ngIf="firstName.errors && form.dirty">
+            <div *ngIf="firstName.errors?.['required']">First name is required</div>
+
+          </div>
+          <input ngModel required #lastName="ngModel" name="lastName" class="form-control" type="text"
+                 placeholder="Last Name">
+
+          <div class="text-danger mt-2" *ngIf="lastName.errors && form.dirty">
+            <div *ngIf="lastName.errors?.['required']">Last Name is required</div>
+          </div>
+
+          <div>
+            <input ngModel required minlength="10" maxlength="10" #phoneNumber="ngModel" name="doctorPhoneNumber"
+                   class="form-control"
+                   type="text"
+                   placeholder="Phone Number">
+
+            <div class="text-danger mt-2" *ngIf="form.dirty">
+              <div *ngIf="phoneNumber.errors?.['required']">Phone number is required</div>
+              <div *ngIf="phoneNumber.errors?.['minlength']">Phone Number must be at least 10 characters</div>
+              <div *ngIf="phoneNumber.errors?.['maxlength']">Phone Number must be less than 12 characters</div>
+            </div>
+
+            <select ngModel required #gender="ngModel" name="gender" class="form-select">
+              <option>Male</option>
+              <option>Female</option>
+              <option>Others</option>
+            </select>
+            <div class="text-danger mt-2" *ngIf="gender.errors && form.dirty">
+              <div *ngIf="gender.errors?.['required']">gender is required</div>
+            </div>
+          </div>
+
+
+          <input ngModel required #Specilization="ngModel" name="Specilization" class="form-control" type="text"
+                 placeholder="Specialization">
+          <div class="text-danger mt-2" *ngIf="Specilization.errors && form.dirty">
+            <div *ngIf="Specilization.errors?.['required']">Qualification is required</div>
+          </div>
+
+
+          <input ngModel required #qualification="ngModel" name="qualification" class="form-control" type="text"
+                 placeholder="Qualification">
+          <div class="text-danger mt-2" *ngIf="qualification.errors && form.dirty">
+            <div *ngIf="qualification.errors?.['required']">Qualification is required</div>
+          </div>
+
+          <input ngModel required #email="ngModel" name="email" class="form-control" type="email" placeholder="Email">
+          <div class="text-danger mt-2" *ngIf="email.errors && form.dirty">
+            <div *ngIf="email.errors?.['required']">Email is required</div>
+          </div>
+
+          <input ngModel required #dob="ngModel" name="dob" class="form-control" type="date"
+                 placeholder="Date of Birth" [max]="getToday()">
+          <div class="text-danger mt-2" *ngIf="dob.errors && form.dirty">
+            <span *ngIf="dob.errors?.['required']">Date of Birth is required</span>
+          </div>
+
+          <input ngModel required #experience="ngModel" name="experience" class="form-control" type="text"
+                 placeholder="experience">
+          <div class="text-danger mt-2" *ngIf="experience.errors && form.dirty">
+            <div *ngIf="experience.errors?.['required']">experience is required</div>
+          </div>
+          <input ngModel required #password="ngModel" name="password" class="form-control" type="password"
+                 placeholder="Password"/>
+          <div class="text-danger mt-2" *ngIf="password.errors && form.dirty">
+            <div *ngIf="password.errors?.['required']">Password is required</div>
+          </div>
+
+          <input ngModel #confirmPassword="ngModel" name="confirmPassword" class="form-control" type="password"
+                 placeholder="Confirm Password"/>
+          <div class="text-danger mt-2" *ngIf="form.dirty">
+            <div *ngIf="confirmPassword.errors?.['required']">Confirm Password is required</div>
+            <div *ngIf="password.value != confirmPassword.value">Password should match</div>
+          </div>
+
+          <div>
+            <span class="text-danger" *ngIf="form.dirty && form.invalid">Please fill in all the fields</span>
+          </div>
+
+          <div class="d-flex justify-content-end mt-3">
+            <button [disabled]="form.invalid || confirmPassword.value != password.value " class="btn btn-primary">
+              Register
+            </button>
+          </div>
+
+
+        </form>
+
+      </div>
+
+    </div>
+    <!--    &#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;-->
+
+
+  </div>
+
+
+</div>

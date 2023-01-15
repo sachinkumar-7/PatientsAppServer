@@ -1,0 +1,34 @@
+input {
+  margin-top: 7px;
+}
+
+select {
+  margin-top: 7px;
+}
+
+div {
+  font-family: monospace;
+}
+
+.form-control {
+
+
+  border-radius: 0px;
+  border: none;
+  border-bottom: 1px solid #2a7bf5;
+}
+
+.form-select {
+  border: none;
+  border-bottom: 1px solid #2a7bf5;
+
+}
+
+a {
+  color: #2a7bf5 !important;
+}
+
+a:hover {
+  color: #3f9b8a !important;
+}
+

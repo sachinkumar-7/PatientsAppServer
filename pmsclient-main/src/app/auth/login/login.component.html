@@ -1,0 +1,30 @@
+<div style="height: 100vh;" class="d-flex justify-content-center align-items-center">
+
+
+  <div class="w-25">
+    <div class="rounded-1 bg-primary text-light p-3 opacity-50 my-3">
+      <h2>Login</h2>
+    </div>
+    <form #form="ngForm" (ngSubmit)="handleLogin(form)">
+
+      <label class="form-label">Email</label>
+      <input ngModel #email="ngModel" name="email" class="form-control" type="text">
+      <label class="form-label">Password</label>
+      <input ngModel #password="ngModel" name="password" class="form-control" type="password">
+      <div class="pt-4 d-flex justify-content-end">
+        <button class="btn btn-primary" type="submit">Login</button>
+      </div>
+    </form>
+    <hr>
+
+    <div class="d-flex justify-content-end px-4">
+      <p>Not a Member Yet? <a routerLink="register" class="text-primary" style="text-decoration: none">Sign up
+        here</a></p>
+    </div>
+  </div>
+
+
+</div>
+
+
+

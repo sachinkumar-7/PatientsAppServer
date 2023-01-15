@@ -1,0 +1,171 @@
+<div class="container-fluid mt-5 font-monospace d-flex justify-content-around">
+
+
+  <div class="w-50 p-4 mx-3" *ngIf="hider">
+
+
+    <ul class="nav nav-tabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Pending
+          Payments</a>
+      </li>
+      <!--      <li class="nav-item" role="presentation">-->
+      <!--        <a class="nav-link" data-bs-toggle="tab" href="#profile" aria-selected="false" tabindex="-1" role="tab">Billed-->
+      <!--          Payments</a>-->
+      <!--      </li>-->
+    </ul>
+
+
+    <div id="myTabContent" class="tab-content" *ngIf="paymentPendingAppointments.length>0">
+
+
+      <div class="tab-pane fade show active" id="home" role="tabpanel">
+
+        <table class="table">
+
+          <thead>
+
+          <tr>
+            <th>Appointment Id</th>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th></th>
+          </tr>
+
+          </thead>
+
+          <tbody>
+          <tr *ngFor="let i of paymentPendingAppointments">
+            <td>{{i.appointmentId}}</td>
+            <td>{{i.patients.firstName}} {{i.patients.lastName}}</td>
+            <td>Dr.{{i.doctors.firstName}} {{i.doctors.lastName}}</td>
+            <td>
+              <button class="btn btn-primary" (click)="getPrescriptions(i);">Prescriptions</button>
+            </td>
+          </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+      <div class="tab-pane fade" id="profile" role="tabpanel">
+
+
+      </div>
+
+    </div>
+
+
+    <!--  div for viewing prescriptions-->
+    <div *ngIf="paymentPendingAppointments.length>0 && billhider==1">
+
+      <form #form="ngForm" (ngSubmit)="billing(form)">
+
+        <table class="table">
+          <thead>
+          <tr>
+            <th>Medicine Name</th>
+            <th>Number of Tablets</th>
+            <th>Frequency</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let m of medicines.split(';').slice(0,medicines.split(';').length-1);let i=index">
+            <td>{{m.split(':')[0]}}</td>
+            <td>{{m.split(':')[1]}}</td>
+            <td>{{m.split(':')[2]}}</td>
+            <td><input ngModel required #mb="ngModel" name="mb{{i}}" type="number" class="btn btn-light"
+                       placeholder="Amount ₹"></td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="mt-3 d-flex justify-content-end">
+          <button [disabled]="form.invalid" type="submit" class="btn btn-success">Generate Bill 🗒️</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!--    side div-->
+
+  <div class="card p-4 text-secondary " *ngIf="hider==false">
+
+    <div>
+      <div class="d-flex justify-content-center">
+        <h2>Payment Invoice</h2>
+      </div>
+      <hr>
+      <div class="d-flex justify-content-between">
+        <span>Invoice Number</span>
+        <span>SIN{{currentUser.date.split('T')[0].split('-').join('')}}{{currentUser.appointmentId}}</span>
+      </div>
+      <div class="d-flex justify-content-between">
+        <span>Appointment Date</span>
+        <span>{{currentUser.date.split('T')[0]}}</span>
+      </div>
+
+      <hr>
+      <div class="d-flex justify-content-between">
+
+        <div>
+          <h5>Patient Information</h5>
+          <hr>
+          <p>{{currentUser.patients.firstName}} {{currentUser.patients.lastName}}</p>
+          <p>UID : {{currentUser.patients.id}}</p>
+          <p>{{currentUser.patients.patientPhoneNumber}}</p>
+        </div>
+
+        <div>
+          <h5>Doctor Information</h5>
+          <hr>
+          <p>Dr {{currentUser.doctors.firstName}} {{currentUser.doctors.lastName}}</p>
+          <p>{{currentUser.doctors.doctorPhoneNumber}}</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div>
+      <hr>
+      <h3>Prescription Details</h3>
+      <hr>
+      <table class="table">
+        <thead>
+        <tr>
+          <th>No</th>
+          <th>Description</th>
+          <th>Intake Quantity</th>
+          <th>Frequency</th>
+          <th>Amount</th>
+        </tr>
+
+        </thead>
+        <tbody>
+        <tr *ngFor="let m of newMedicines.split(';').slice(0,newMedicines.split(';').length-1) ;let i = index;">
+          <td>{{i}}</td>
+          <td> {{m.split(':')[0]}}</td>
+          <td> {{m.split(':')[1]}}</td>
+          <td> {{m.split(':')[2]}}</td>
+          <th>₹ {{m.split(':')[3]}}</th>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <hr>
+    <div class="d-flex justify-content-end">
+      <p>Total Amount: {{total}}</p>
+    </div>
+    <hr>
+    <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-danger" (click)="completeConsultation()">Print Invoice</button>
+    </div>
+
+  </div>
+
+
+</div>

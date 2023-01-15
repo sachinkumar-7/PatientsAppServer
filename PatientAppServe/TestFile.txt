@@ -1,0 +1,133 @@
+﻿Patient Registration New
+-----------------------------------
+
+{
+  "email": "brijsh@gmail.com",
+  "password": "Pass@123",
+  "confirmPassword": "Pass@123",
+  "patientPhoneNumber": "911234567890",
+  "firstName": "Brijesh",
+  "lastName": "LastName",
+  "dob": "2022-12-15",
+  "gender": "Male",
+  "houseNo": "6437",
+  "place": "Admilai",
+  "pincode": 897898,
+  "emergencyContactNumber": "912356784567",
+  "bloodGroup": "O",
+  "aadhar": 123456543234,
+  "relation": ""
+}
+
+
+Patient Linkeduser registration
+---------------------------------
+
+{
+  "email": "brijsh@gmail.com",
+  "firstName": "string",
+  "lastName": "string",
+  "dob": "2022-12-15",
+  "gender": "Male",
+  "houseNo": "78744",
+  "place": "string",
+  "pincode": 897868,
+  "emergencyContactNumber": "6787898786",
+  "bloodGroup": "A",
+  "aadhar": 435676456767,
+  "relation": "Parent"
+}
+
+
+
+
+
+
+New Doctor Registration
+https://localhost:7296/api/Accounts/newdoctor
+---------------------------------------------
+
+
+
+{
+  "doctorPhoneNumber": "stringstri",
+  "firstName": "string",
+  "lastName": "string",
+  "gender": "string",
+  "qualification": "string",
+  "experience": "string",
+  "dob": "2022-12-15T09:10:04.429Z",
+  "availability": true,
+  "email": "string@gmail",
+  "password": "Pass@123",
+  "confirmPassword": "Pass@123"
+}
+
+GenerateData
+-------------------------------------------------------------
+
+https://localhost:7296/api/Accounts/GenerateData
+
+
+Book Appointmant
+------------------------------------------------------
+
+https://localhost:7296/api/PatientService/BookAppointment/1
+
+{
+
+  "doctorId": 0,
+  "patientId": 1,
+ "date": "2022-12-15T10:54:35.308Z",
+  "session": "string",
+ "consultationFee": 0,
+  "consultationMode": "string",
+ "status": "string"
+
+   
+}
+
+GetDoctor
+-------------------------------------------------------------
+
+https://localhost:7296/api/Doctor
+
+PutDoctor
+---------------------------------------------------------------
+
+https://localhost:7296/api/Doctor
+
+GetDoctor id
+
+https://localhost:7296/api/Doctor/1
+
+
+GetPatient
+----------------------------------------------------------------
+
+https://localhost:7296/api/Patient
+
+GetPatientId
+-----------------------------------------------------------------
+
+https://localhost:7296/api/Patient/1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "consultationMode": "string"
+ "status": "string",
+
+   
+}
